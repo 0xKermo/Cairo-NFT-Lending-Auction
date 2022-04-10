@@ -1,0 +1,192 @@
+[
+    {
+        "members": [
+            {
+                "name": "borrower",
+                "offset": 0,
+                "type": "felt"
+            },
+            {
+                "name": "topLender",
+                "offset": 1,
+                "type": "felt"
+            },
+            {
+                "name": "colleteralAddress",
+                "offset": 2,
+                "type": "felt"
+            },
+            {
+                "name": "colleteralId",
+                "offset": 3,
+                "type": "Uint256"
+            },
+            {
+                "name": "erc20Address",
+                "offset": 5,
+                "type": "felt"
+            },
+            {
+                "name": "loanCurrency",
+                "offset": 6,
+                "type": "felt"
+            },
+            {
+                "name": "loanAmount",
+                "offset": 7,
+                "type": "felt"
+            },
+            {
+                "name": "loanRepaymentAmount",
+                "offset": 8,
+                "type": "felt"
+            },
+            {
+                "name": "auctionDepositAmount",
+                "offset": 9,
+                "type": "felt"
+            },
+            {
+                "name": "minDecrementFactorNumerator",
+                "offset": 10,
+                "type": "felt"
+            },
+            {
+                "name": "auctionEndTime",
+                "offset": 11,
+                "type": "felt"
+            },
+            {
+                "name": "loanRepaymentDeadline",
+                "offset": 12,
+                "type": "felt"
+            }
+        ],
+        "name": "LoanAuction",
+        "size": 13,
+        "type": "struct"
+    },
+    {
+        "members": [
+            {
+                "name": "low",
+                "offset": 0,
+                "type": "felt"
+            },
+            {
+                "name": "high",
+                "offset": 1,
+                "type": "felt"
+            }
+        ],
+        "name": "Uint256",
+        "size": 2,
+        "type": "struct"
+    },
+    {
+        "inputs": [],
+        "name": "numAuctions",
+        "outputs": [
+            {
+                "name": "res",
+                "type": "LoanAuction"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "value",
+                "type": "Uint256"
+            },
+            {
+                "name": "colleteralAddress",
+                "type": "felt"
+            },
+            {
+                "name": "colleteralId",
+                "type": "Uint256"
+            },
+            {
+                "name": "loanCurrency",
+                "type": "felt"
+            },
+            {
+                "name": "loanAmount",
+                "type": "felt"
+            },
+            {
+                "name": "maxLoanRepaymentAmount",
+                "type": "felt"
+            },
+            {
+                "name": "auctionDepositAmount",
+                "type": "felt"
+            },
+            {
+                "name": "minDecrementFactorNumerator",
+                "type": "felt"
+            },
+            {
+                "name": "auctionEndTime",
+                "type": "felt"
+            },
+            {
+                "name": "loanRepaymentDeadline",
+                "type": "felt"
+            }
+        ],
+        "name": "startAuction",
+        "outputs": [
+            {
+                "name": "loanAuctionId",
+                "type": "felt"
+            }
+        ],
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "loanAuctionId",
+                "type": "felt"
+            }
+        ],
+        "name": "cancelAuction",
+        "outputs": [],
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "loanAuctionId",
+                "type": "felt"
+            },
+            {
+                "name": "repayAmount",
+                "type": "felt"
+            }
+        ],
+        "name": "bid",
+        "outputs": [],
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "loanAuctionId",
+                "type": "felt"
+            }
+        ],
+        "name": "getLoan",
+        "outputs": [
+            {
+                "name": "bool",
+                "type": "felt"
+            }
+        ],
+        "type": "function"
+    }
+]
