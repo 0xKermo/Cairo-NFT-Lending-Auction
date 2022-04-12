@@ -46,15 +46,17 @@ struct LoanAuction:
     member loanRepaymentDeadline : felt
 end
 
+# A map from loan id to the corresponding loan auction.
 @storage_var
 func loanAuctions(loanId : felt) -> (res : LoanAuction):
 end
 
+# loan auction count
 @storage_var
 func num_auctions() -> (res:felt):
 end
 
-
+# start loan auction
 @external
 func startAuction{
         syscall_ptr : felt*,
@@ -78,7 +80,7 @@ func startAuction{
     let (currentBlockTime) = get_block_timestamp()
     let (current_auction_id) = num_auctions.read()
 
-    with_attr error_message("CREATING ENDED AUCTION"):
+    with_attr error_message("Creating ended auction"):
         assert_lt(currentBlockTime, auctionEndTime)
     end
 
@@ -151,7 +153,7 @@ func cancelAuction{
         assert_not_equal(_loanAuctions.borrower,caller)
     end
 
-    with_attr error_message("This not your auction, Get out!"):
+    with_attr error_message("Cant cancel active auction"):
         assert _loanAuctions.topLender = 0
     end
     
@@ -256,7 +258,7 @@ func getLoan{
         assert_lt(blokTime,_loanAuctions.loanRepaymentDeadline)
     end
 
-    let (remaining) = IERC20.allowance(_loanAuctions.topLender,contractAddress,0)
+    let (remaining) = IERC20.allowance(_loanAuctions.loanCurrency,_loanAuctions.topLender,contractAddress)
     
     # local res = 0
     #  %{

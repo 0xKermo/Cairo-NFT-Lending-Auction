@@ -1,27 +1,45 @@
-"""contract.cairo test file."""
+"""LendingAuction.cairo test file."""
 import os
 
 import pytest
 from starkware.starknet.testing.starknet import Starknet
 
 # The path to the contract source code.
-CONTRACT_FILE = os.path.join("contracts", "contract.cairo")
+CONTRACT_FILE = os.path.join("contracts", "LendingAuction.cairo")
+
+@pytest.fixture(scope="module")
+def event_loop():
+    return asyncio.new_event_loop()
 
 
+@pytest.fixture(scope="module")
+async def get_starknet():
+    starknet = await Starknet.empty()
+    return starknet
+
+
+
+@pytest.fixture(scope="module")
+async def contract_factory():
+    # Deploy the contracts
+    starknet = await Starknet.empty()
+    lendingContract = await starknet.deploy(CONTRACT_FILE)
+    account1 = await starknet.deploy(
+        "openzeppelin/account/Account.cairo",
+        constructor_calldata=[signer.public_key],
+    )
+    account2 = await starknet.deploy(
+        "openzeppelin/account/Account.cairo",
+        constructor_calldata=[signer.public_key],
+    )
+    return lendingContract, account1, account2
 # The testing library uses python's asyncio. So the following
 # decorator and the ``async`` keyword are needed.
 @pytest.mark.asyncio
-async def test_increase_balance():
-    """Test increase_balance method."""
-    # Create a new Starknet class that simulates the StarkNet
-    # system.
-    starknet = await Starknet.empty()
-
-    # Deploy the contract.
-    contract = await starknet.deploy(
-        source=CONTRACT_FILE,
-    )
-
+async def startAuction():
+    """Auction start method."""
+    lendingContract = await contract_factory()
+    print(lendingContract)
     # Invoke increase_balance() twice.
     await contract.increase_balance(amount=10).invoke()
     await contract.increase_balance(amount=20).invoke()
