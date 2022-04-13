@@ -38,8 +38,8 @@ struct LoanAuction:
     member colleteralAddress : felt 
     member colleteralId : Uint256
     member loanCurrency : felt # token address to be accepted
-    member loanAmount : felt  # Denominated in above token type
-    member loanRepaymentAmount : felt   # Discount = DiscountRate * (CurrentBlock * StartBlock)
+    member loanAmount : felt  
+    member loanRepaymentAmount : felt   
     member auctionDepositAmount : felt
     member minDecrementFactorNumerator : felt
     member auctionEndTime : felt
