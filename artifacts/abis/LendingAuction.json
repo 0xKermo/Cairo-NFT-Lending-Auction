@@ -19,10 +19,6 @@
     {
         "inputs": [
             {
-                "name": "value",
-                "type": "Uint256"
-            },
-            {
                 "name": "colleteralAddress",
                 "type": "felt"
             },

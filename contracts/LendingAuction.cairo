@@ -63,7 +63,6 @@ func startAuction{
         pedersen_ptr : HashBuiltin*,
         range_check_ptr
     }(
-        value : Uint256, 
         colleteralAddress: felt,
         colleteralId: Uint256,
         loanCurrency : felt,
@@ -130,7 +129,7 @@ func startAuction{
     loanAuctions.write(current_auction_id,_loanAuctions)
     let next_auction_id = current_auction_id + 1
     num_auctions.write(next_auction_id)
-    return (next_auction_id)
+    return (current_auction_id)
 end
 
 
