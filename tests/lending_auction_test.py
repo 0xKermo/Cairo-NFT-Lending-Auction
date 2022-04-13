@@ -46,7 +46,7 @@ async def contract_factory():
         ]
     )
 
-      # Mint tokens to account1
+      # Mint tokens to user_account
     for token in TOKENS:
         await signer.send_transaction(
             account=account1,
@@ -84,12 +84,12 @@ async def startAuction():
     colleteralId = *TOKEN,
     loanCurrency =mock_erc20.contract_address,
     loanAmount =1000,
-    maxLoanRepaymentAmount= 100,
+    maxLoanRepaymentAmount= 10000,
     auctionDepositAmount = 100,
     minDecrementFactorNumerator= 1000,
-    auctionEndTime = timeStamp + ONE_DAY,
-    loanRepaymentDeadline =(timeStamp + ONE_DAY) / 2,
-
+    auctionEndTime = (timeStamp + ONE_DAY) / 2,
+    loanRepaymentDeadline =timeStamp + ONE_DAY,
+    # Auction start
     auctionId = await lendingContract.startAuction(colleteralAddress,colleteralId,loanCurrency,
     loanAmount, maxLoanRepaymentAmount, auctionDepositAmount, minDecrementFactorNumerator, auctionEndTime,
     loanRepaymentDeadline).invoke()
