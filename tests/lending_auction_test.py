@@ -83,9 +83,9 @@ async def startAuction():
     colleteralAddress = erc721.contract_address,
     colleteralId = *TOKEN,
     loanCurrency =mock_erc20.contract_address,
-    loanAmount =1000,
-    maxLoanRepaymentAmount= 10000,
-    auctionDepositAmount = 100,
+    loanAmount =100,
+    maxLoanRepaymentAmount= 110,
+    auctionDepositAmount = 90,
     minDecrementFactorNumerator= 1000,
     auctionEndTime = (timeStamp + ONE_DAY) / 2,
     loanRepaymentDeadline =timeStamp + ONE_DAY,
@@ -95,4 +95,18 @@ async def startAuction():
     loanRepaymentDeadline).invoke()
 
     nextAuctionId = await lendingContract.num_auctions().call().result
+    nftOwner =  await erc721.ownerOf(TOKEN).call()
+    
+    # Is nft given as collateral to the contract? 
+    assert nftOwner.result == lendingContract.contract_address
     assert to_uint(auctionId.result) == to_uint(nextAuctionId-1)
+
+
+@pytest.mark.asyncio
+async def auctionFactory():
+
+    lendingContract, user_account, erc721, erc20= await contract_factory()
+
+    await lendingContract.cancelAuction(1).invoke()
+    nftOwner =  await erc721.ownerOf(TOKEN).call()
+    assert nftOwner.result == user_account.contract_address

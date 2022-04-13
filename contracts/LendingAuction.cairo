@@ -148,11 +148,11 @@ func cancelAuction{
     let (caller) = get_caller_address()
     let (contractAddress) = get_contract_address()
 
-    with_attr error_message("This not your auction, Get out!"):
+    with_attr error_message("This is not your auction, Get out!"):
         assert_not_equal(_loanAuctions.borrower,caller)
     end
 
-    with_attr error_message("Cant cancel active auction"):
+    with_attr error_message("Can not cancel active auction"):
         assert _loanAuctions.topLender = 0
     end
     
