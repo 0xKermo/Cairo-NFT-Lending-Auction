@@ -8,7 +8,6 @@ from starkware.cairo.common.math import (
     assert_le,
     assert_lt,
     assert_not_equal,
-    split_felt,
     assert_not_zero,
 )
 
@@ -17,8 +16,6 @@ from starkware.cairo.common.uint256 import (
     Uint256,
     uint256_le,
     uint256_lt,
-    uint256_mul,
-    uint256_sub,
 )
 from starkware.starknet.common.syscalls import (
     get_caller_address,
@@ -258,17 +255,6 @@ func getLoan{
     end
 
     let (remaining) = IERC20.allowance(_loanAuctions.loanCurrency,_loanAuctions.topLender,contractAddress)
-    
-    # local res = 0
-    #  %{
-        
-    #     
-    #     # Use the ids variable to access the value of a Cairo variable.
-    #         ids.res = 1
-    #     else:
-    #         ids.res = 2
-    # %}
-
     let res :felt = uint256_le(Uint256(_loanAuctions.loanAmount -_loanAuctions.auctionDepositAmount ,0),remaining)
     
 
